@@ -23,15 +23,6 @@ class _HomePageState extends State<HomePage> {
   var userQuestion = '';
   var userAnswer = '';
 
-
-  final List<String> frases = [
-    '2, também não sou burro',
-    'é pra amanhã? amanhã calculo e mando então',
-    'pergunta difícil, vo furar os pneu do teu carro',
-    'cansei, Vo trancar o curso',
-  ];
-  var count=0;
-
   final List<String> buttons = [
     'C',
     'DEL',
@@ -70,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                       height: 50,
                     ),
                     Container(
-                      padding: EdgeInsets.all(30),
+                      padding: EdgeInsets.all(40),
                       alignment: Alignment.centerLeft,
                       child: Text(
                         userQuestion,
@@ -82,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                       alignment: Alignment.centerRight,
                       child: Text(
                         userAnswer,
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),
                       ),
                     ),
                   ],
@@ -153,7 +144,7 @@ class _HomePageState extends State<HomePage> {
                               : Colors.deepPurple[50],
                           textColor: isOperator(buttons[index])
                               ? Colors.white
-                              : Colors.deepPurple,
+                                : Colors.deepPurple,
                         );
                       }
                     }),
@@ -173,13 +164,15 @@ class _HomePageState extends State<HomePage> {
   void equalPressed() {
     String finalQuestion = userQuestion;
     finalQuestion = finalQuestion.replaceAll('x', '*');
+      
+    
 
     Parser p = Parser();
     Expression exp = p.parse(finalQuestion);
     ContextModel cm = ContextModel();
     double eval = exp.evaluate(EvaluationType.REAL, cm);
 
-    userAnswer = eval.toString();
+    userAnswer = eval.toString().replaceAll('.0', '');
   }
 }
 
